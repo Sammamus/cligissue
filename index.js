@@ -47,13 +47,14 @@ program.command('list')
 program.command('create')
     .description('Create a new issue')
     .allowExcessArguments(true)
-    .option('-t, --title <title>', 'Title of the issue')
+    .requiredOption('-t, --title <title>', 'Title of the issue')
     .option('-b, --body <body>', 'Body of the issue')
     .option('-f, --file <file>', 'Template File predefined information')
     .option('-a, --assignee <assignee>', 'Assignee of the issue')
     .option('-l, --label <label>', 'Label of the issue')
     .option('-m, --milestone <milestone>', 'Milestone of the issue')
     .option('-r, --repository <repository>', 'Repository name')
+    .option('-o, --owner <owner>', 'Owner of the repository')
     .action((options) => {
         // const options = program.opts();
         const main = new Main(options);
@@ -63,7 +64,7 @@ program.command('create')
 program.command('update')
     .description('Update an existing issue')
     .allowExcessArguments(true)
-    .option('-i, --issue <issue>', 'Issue number')
+    .requiredOption('-i, --issue <issue>', 'Issue number')
     .option('-t, --title <title>', 'Title of the issue')
     .option('-b, --body <body>', 'Body of the issue')
     .option('-f, --file <file>', 'Template File predefined information')
@@ -71,6 +72,8 @@ program.command('update')
     .option('-l, --label <label>', 'Label of the issue')
     .option('-m, --milestone <milestone>', 'Milestone of the issue')
     .option('-s, --state <state>', 'State of the issue')
+    .option('-r, --repository <repository>', 'Repository name')
+    .option('-o, --owner <owner>', 'Owner of the repository')
     .action((options) => {
         // const options = program.opts();
         const main = new Main(options);
@@ -81,6 +84,8 @@ program.command('close')
     .description('Close an existing issue')
     .allowExcessArguments(true)
     .requiredOption('-i, --issue <issue>', 'Issue number')
+    .option('-r, --repository <repository>', 'Repository name')
+    .option('-o, --owner <owner>', 'Owner of the repository')
     .option('-f, --file <file>', 'Template File predefined information')
     .action((options) => {
         // const options = program.opts();

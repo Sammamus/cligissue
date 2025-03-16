@@ -39,7 +39,8 @@ export class Main {
 
     async ifFile() {
         if (this.file) {
-            const templateData = template.load(this.file);
+            const templateData = await template.load(this.file);
+            console.log(templateData);
 
             this.name = templateData.name && templateData.name !== '' ? templateData.name : this.name;
             this.description = templateData.description && templateData.description !== '' ? templateData.description : this.description;
@@ -56,19 +57,29 @@ export class Main {
 
         console.log('Listing issues...');
 
-        data = {
+        const data = {
             owner: this.owner,
             repo: this.repository,
-            state: this.state,
-            assignee: this.assignee,
-            label: this.label,
-            milestone: this.milestone,
-            creator: this.creator,
-            repository: this.repository,
-            per_page: 100
+        };
+
+        if (this.state !== '') {
+            data.state = this.state;
         }
-        const issues = await issues.getIssues(data);
-        console.log(JSON.stringify(issues, null, 2));
+        if (this.assignee !== '') {
+            data.assignee = this.assignee;
+        }
+        if (this.label !== '') {
+            data.label = this.label;
+        }
+        if (this.milestone !== '') {
+            data.milestone = this.milestone;
+        }
+        if (this.creator !== '') {
+            data.creator = this.creator;
+        }
+
+        const getissues = await issues.getIssues(data);
+        console.log(JSON.stringify(getissues, null, 2));
     }
 
     async create() {
@@ -80,11 +91,21 @@ export class Main {
             owner: this.owner,
             repo: this.repository,
             title: this.title,
-            body: this.body,
-            assignee: this.assignee,
-            label: this.label,
-            milestone: this.milestone
         }
+
+        if (this.body !== '') {
+            data.body = this.body;
+        }
+        if (this.assignee !== '') {
+            data.assignee = this.assignee;
+        }
+        if (this.label !== '') {
+            data.label = this.label;
+        }
+        if (this.milestone !== '') {
+            data.milestone = this.milestone;
+        }
+
         const response = await issues.createIssue(data);
         console.log(JSON.stringify(response, null, 2));
     }
@@ -97,14 +118,28 @@ export class Main {
         const data = {
             owner: this.owner,
             repo: this.repository,
-            issue: this.issue,
-            title: this.title,
-            body: this.body,
-            assignee: this.assignee,
-            label: this.label,
-            milestone: this.milestone,
-            state: this.state
+            issue: this.issue
         }
+
+        if (this.title !== '') {
+            data.title = this.title;
+        }
+        if (this.body !== '') {
+            data.body = this.body;
+        }
+        if (this.assignee !== '') {
+            data.assignee = this.assignee;
+        }
+        if (this.label !== '') {
+            data.label = this.label;
+        }
+        if (this.milestone !== '') {
+            data.milestone = this.milestone;
+        }
+        if (this.state !== '') {
+            data.state = this.state;
+        }
+
         const response = await issues.updateIssue(data);
         console.log(JSON.stringify(response, null, 2));
     }

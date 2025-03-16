@@ -4,7 +4,6 @@ import fs from 'fs';
 export class Template{
 
     create(data) {
-        console.log('Creating a new issue template...');
         const templateData = {
             name: data.name,
             description: data.description,
@@ -20,9 +19,9 @@ export class Template{
         
     }
 
-    load() {
+    load(filename) {
         console.log('Loading issue template...');
-        const filePath = `${data.name}.json`;
+        const filePath = filename;
         if (fs.existsSync(filePath
             )) {
             return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
