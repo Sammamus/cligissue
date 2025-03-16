@@ -1,27 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 
-class Template{
-    constructor(name, description, owner, repository, assignee, label, milestone){
-        this.name = name;
-        this.description = description;
-        this.owner = owner;
-        this.repository = repository;
-        this.assignee = assignee;
-        this.label = label;
-        this.milestone = milestone;
-    }
+export class Template{
 
-    create() {
+    create(data) {
         console.log('Creating a new issue template...');
         const templateData = {
-            name: this.name,
-            description: this.description,
-            owner: this.owner,
-            repository: this.repository,
-            assignee: this.assignee,
-            label: this.label,
-            milestone: this.milestone
+            name: data.name,
+            description: data.description,
+            owner: data.owner,
+            repository: data.repository,
+            assignee: data.assignee,
+            label: data.label,
+            milestone: data.milestone
         };
 
         const filePath = path.join(__dirname, `${this.name}.json`);

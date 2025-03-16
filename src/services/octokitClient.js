@@ -2,7 +2,7 @@ import { Octokit } from '@octokit/core';
 
 import { config } from '../config.js';
 
-class OctokitClient {
+export class OctokitClient {
     constructor() {
         this.octokit = new Octokit({ auth: config.token });
     }
