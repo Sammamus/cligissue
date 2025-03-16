@@ -1,5 +1,5 @@
 import fs from 'fs';
-import path from 'path';
+
 
 export class Template{
 
@@ -15,14 +15,14 @@ export class Template{
             milestone: data.milestone
         };
 
-        const filePath = path.join(__dirname, `${this.name}.json`);
+        const filePath = `${data.name}.json`;
         fs.writeFileSync(filePath, JSON.stringify(templateData, null, 2), 'utf-8');
         
     }
 
     load() {
         console.log('Loading issue template...');
-        const filePath = path.join(__dirname, `${this.name}.json`);
+        const filePath = `${data.name}.json`;
         if (fs.existsSync(filePath
             )) {
             return JSON.parse(fs.readFileSync(filePath, 'utf-8'));

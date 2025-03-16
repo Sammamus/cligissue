@@ -1,4 +1,4 @@
-import { Template } from './services/template.js';
+import { Template } from './services/templateCreator.js';
 import { Issues } from './services/gitIssues.js';
 
 const template = new Template();

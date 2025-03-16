@@ -1,4 +1,4 @@
-#!/usr/local/bin node
+#!/usr/local/bin/node
 
 import { Command } from 'commander';
 
@@ -14,6 +14,7 @@ program
 
 program.command('template')
     .description('Create a usage template')
+    .allowExcessArguments(true)
     .requiredOption('-n --name <name>', 'Name of the template')
     .option('-d --description <description>', 'Description of the template')
     .requiredOption('-o --owner <owner>', 'Owner of the repository')
@@ -22,13 +23,14 @@ program.command('template')
     .option('-l --label <label>', 'Label of the issue')
     .option('-m --milestone <milestone>', 'Milestone of the issue')
     .action((options) => {
-        const options = program.opts();
+        // const options = program.opts();
         const main = new Main(options);
         main.createTemplate();
     });
 
 program.command('list')
     .description('List all issues')
+    .allowExcessArguments(true)
     .option('-s, --state <state>', 'Filter issues by state')
     .option('-a, --assignee <assignee>', 'Filter issues by assignee')
     .option('-l, --label <label>', 'Filter issues by label')
@@ -37,13 +39,14 @@ program.command('list')
     .option('-r, --repository <repository>', 'Filter issues by repository')
     .option('-f, --file <file>', 'Template File predefined information')
     .action((options) => {
-        const options = program.opts();
+        // const options = program.opts();
         const main = new Main(options);
         main.list();
     });
 
 program.command('create')
     .description('Create a new issue')
+    .allowExcessArguments(true)
     .option('-t, --title <title>', 'Title of the issue')
     .option('-b, --body <body>', 'Body of the issue')
     .option('-f, --file <file>', 'Template File predefined information')
@@ -51,14 +54,15 @@ program.command('create')
     .option('-l, --label <label>', 'Label of the issue')
     .option('-m, --milestone <milestone>', 'Milestone of the issue')
     .option('-r, --repository <repository>', 'Repository name')
-    .action(() => {
-        const options = program.opts();
+    .action((options) => {
+        // const options = program.opts();
         const main = new Main(options);
         main.create();
     });
 
 program.command('update')
     .description('Update an existing issue')
+    .allowExcessArguments(true)
     .option('-i, --issue <issue>', 'Issue number')
     .option('-t, --title <title>', 'Title of the issue')
     .option('-b, --body <body>', 'Body of the issue')
@@ -67,20 +71,21 @@ program.command('update')
     .option('-l, --label <label>', 'Label of the issue')
     .option('-m, --milestone <milestone>', 'Milestone of the issue')
     .option('-s, --state <state>', 'State of the issue')
-    .action(() => {
-        const options = program.opts();
+    .action((options) => {
+        // const options = program.opts();
         const main = new Main(options);
         main.update();
     });
 
 program.command('close')
     .description('Close an existing issue')
+    .allowExcessArguments(true)
     .requiredOption('-i, --issue <issue>', 'Issue number')
     .option('-f, --file <file>', 'Template File predefined information')
-    .action(() => {
-        const options = program.opts();
+    .action((options) => {
+        // const options = program.opts();
         const main = new Main(options);
         main.close();
     });
 
-program.parse(process.argv);
+program.parse();
