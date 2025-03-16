@@ -1,0 +1,38 @@
+{
+  "name": "cligissue",
+  "version": "1.0.0",
+  "description": "Management tool for github issues because I'm too lazy to open a browser.",
+  "keywords": [
+    "CLI",
+    "Github",
+    "Issues"
+  ],
+  "homepage": "https://github.com/Sammamus/cligissue#readme",
+  "bugs": {
+    "url": "https://github.com/Sammamus/cligissue/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sammamus/cligissue.git"
+  },
+  "license": "MIT",
+  "author": "Darian Raffle",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "cligissue": "./main.js"
+  },
+  "dependencies": {
+    "@octokit/core": "^6.1.4",
+    "ajv": "^8.17.1",
+    "commander": "^13.1.0",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^11.1.0"
+  }
+}
