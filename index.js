@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import { Main } from './src/main.js';
 
 const program = new Command();
-const main = new Main();
+
 
 program
     .name('cligissue')
@@ -12,14 +12,16 @@ program
 
 program.command('template')
     .description('Create a usage template')
-    .option('-n --name <name>', 'Name of the template')
+    .requiredOption('-n --name <name>', 'Name of the template')
     .option('-d --description <description>', 'Description of the template')
-    .option('-o --owner <owner>', 'Owner of the repository')
-    .option('-r --repository <repository>', 'Repository name')
+    .requiredOption('-o --owner <owner>', 'Owner of the repository')
+    .requiredOption('-r --repository <repository>', 'Repository name')
     .option('-a --assignee <assignee>', 'Assignee of the issue')
     .option('-l --label <label>', 'Label of the issue')
     .option('-m --milestone <milestone>', 'Milestone of the issue')
-    .action(() => {
+    .action((options) => {
+        const options = program.opts();
+        const main = new Main(options);
         main.createTemplate();
     });
 
@@ -32,7 +34,9 @@ program.command('list')
     .option('-c, --creator <creator>', 'Filter issues by creator')
     .option('-r, --repository <repository>', 'Filter issues by repository')
     .option('-f, --file <file>', 'Template File predefined information')
-    .action(() => {
+    .action((options) => {
+        const options = program.opts();
+        const main = new Main(options);
         main.list();
     });
 
@@ -46,6 +50,8 @@ program.command('create')
     .option('-m, --milestone <milestone>', 'Milestone of the issue')
     .option('-r, --repository <repository>', 'Repository name')
     .action(() => {
+        const options = program.opts();
+        const main = new Main(options);
         main.create();
     });
 
@@ -60,13 +66,19 @@ program.command('update')
     .option('-m, --milestone <milestone>', 'Milestone of the issue')
     .option('-s, --state <state>', 'State of the issue')
     .action(() => {
+        const options = program.opts();
+        const main = new Main(options);
         main.update();
     });
 
 program.command('close')
     .description('Close an existing issue')
-    .option('-i, --issue <issue>', 'Issue number')
+    .requiredOption('-i, --issue <issue>', 'Issue number')
     .option('-f, --file <file>', 'Template File predefined information')
     .action(() => {
+        const options = program.opts();
+        const main = new Main(options);
         main.close();
     });
+
+program.parse(process.argv);
