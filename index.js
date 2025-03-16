@@ -1,3 +1,5 @@
+#!/usr/local/bin node
+
 import { Command } from 'commander';
 
 import { Main } from './src/main.js';
