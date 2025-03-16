@@ -1,9 +1,12 @@
 import { Command } from 'commander';
 
+import { Main } from './src/main.js';
+
 const program = new Command();
+const main = new Main();
 
 program
-    .name('gligissue')
+    .name('cligissue')
     .description('A CLI tool for managing GitHub issues')
     .version('1.0.0');
 
@@ -17,7 +20,7 @@ program.command('template')
     .option('-l --label <label>', 'Label of the issue')
     .option('-m --milestone <milestone>', 'Milestone of the issue')
     .action(() => {
-        console.log('Create a new issue template');
+        main.createTemplate();
     });
 
 program.command('list')
@@ -28,8 +31,9 @@ program.command('list')
     .option('-m, --milestone <milestone>', 'Filter issues by milestone')
     .option('-c, --creator <creator>', 'Filter issues by creator')
     .option('-r, --repository <repository>', 'Filter issues by repository')
+    .option('-f, --file <file>', 'Template File predefined information')
     .action(() => {
-        console.log('List all issues');
+        main.list();
     });
 
 program.command('create')
@@ -42,7 +46,7 @@ program.command('create')
     .option('-m, --milestone <milestone>', 'Milestone of the issue')
     .option('-r, --repository <repository>', 'Repository name')
     .action(() => {
-        console.log('Create a new issue');
+        main.create();
     });
 
 program.command('update')
@@ -50,17 +54,19 @@ program.command('update')
     .option('-i, --issue <issue>', 'Issue number')
     .option('-t, --title <title>', 'Title of the issue')
     .option('-b, --body <body>', 'Body of the issue')
+    .option('-f, --file <file>', 'Template File predefined information')
     .option('-a, --assignee <assignee>', 'Assignee of the issue')
     .option('-l, --label <label>', 'Label of the issue')
     .option('-m, --milestone <milestone>', 'Milestone of the issue')
     .option('-s, --state <state>', 'State of the issue')
     .action(() => {
-        console.log('Update an existing issue');
+        main.update();
     });
 
 program.command('close')
     .description('Close an existing issue')
     .option('-i, --issue <issue>', 'Issue number')
+    .option('-f, --file <file>', 'Template File predefined information')
     .action(() => {
-        console.log('Close an existing issue');
+        main.close();
     });
