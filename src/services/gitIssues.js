@@ -9,109 +9,131 @@ export class Issues {
     }
 
     async getIssues(data) {
-        const response = await this.client.request(`GET /repos/${data.owner}/${data.repo}/issues`, {
-            owner: data.owner,
-            repo: data.repository,
-            state: data.state,
-            assignee: data.assignee,
-            label: data.label,
-            milestone: data.milestone,
-            creator: data.creator,
-            repository: data.repository,
-            per_page: data.per_page
-        });
+        try {
+            const response = await this.client.request(`GET /repos/${data.owner}/${data.repo}/issues`, {
+                owner: data.owner,
+                repo: data.repository,
+                state: data.state,
+                assignee: data.assignee,
+                label: data.label,
+                milestone: data.milestone,
+                creator: data.creator,
+                repository: data.repository,
+                per_page: data.per_page
+            });
 
-        let output = [];
+            const output = response.data.map((issue) => {
+                return {
+                    issueID: issue.number,
+                    title: issue.title,
+                    body: issue.body,
+                    state: issue.state,
+                    assignee: issue.assignee.login,
+                    label: issue.labels,
+                    milestone: issue.milestone,
+                    creator: issue.creator,
+                    url: issue.url
+                };
+            });
 
-        output = response.data.map((issue) => {
-            return {
-                issueID: issue.number,
-                title: issue.title,
-                body: issue.body,
-                state: issue.state,
-                assignee: issue.assignee.login,
-                label: issue.labels,
-                milestone: issue.milestone,
-                creator: issue.creator,
-                url: issue.url
-            };
-        });
-
-
-        return output;
+            return output;
+        }
+        catch (error) {
+            console.log(error);
+            return {};
+        }
     }
 
     async createIssue(data) {
-        const response = await this.client.request(`POST /repos/${data.owner}/${data.repo}/issues`, {
-            owner: data.owner,
-            repo: data.repository,
-            title: data.title,
-            body: data.body,
-            assignee: data.assignee,
-            label: data.label,
-            milestone: data.milestone
-        });
+        try {
+            const response = await this.client.request(`POST /repos/${data.owner}/${data.repo}/issues`, {
+                owner: data.owner,
+                repo: data.repository,
+                title: data.title,
+                body: data.body,
+                assignee: data.assignee,
+                label: data.label,
+                milestone: data.milestone
+            });
 
-        let output = {}
+            const output = {}
 
-        output.issueID = response.data.number;
-        output.title = response.data.title;
-        output.body = response.data.body;
-        output.state = response.data.state;
-        output.assignee = response.data.assignee.login;
-        output.label = response.data.labels;
-        output.milestone = response.data.milestone;
-        output.creator = response.data.user.login;
-        output.url = response.data.url;
+            output.issueID = response.data.number;
+            output.title = response.data.title;
+            output.body = response.data.body;
+            output.state = response.data.state;
+            output.assignee = response.data.assignee.login;
+            output.label = response.data.labels;
+            output.milestone = response.data.milestone;
+            output.creator = response.data.user.login;
+            output.url = response.data.url;
 
-        return output;
+            return output;
+        }
+        catch (error) {
+            console.log(error);
+            return {};
+        }
     }
 
     async updateIssue(data) {
-        const response = await this.client.request(`PATCH /repos/${data.owner}/${data.repo}/issues/${data.issue}`, {
-            owner: data.owner,
-            repo: data.repository,
-            title: data.title,
-            body: data.body,
-            assignee: data.assignee,
-            label: data.label,
-            milestone: data.milestone,
-            state: data.state
-        });
+        try {
+            const response = await this.client.request(`PATCH /repos/${data.owner}/${data.repo}/issues/${data.issue}`, {
+                owner: data.owner,
+                repo: data.repository,
+                title: data.title,
+                body: data.body,
+                assignee: data.assignee,
+                label: data.label,
+                milestone: data.milestone,
+                state: data.state
+            });
 
-        let output = {}
+            const output = {}
 
-        output.issueID = response.data.number;
-        output.title = response.data.title;
-        output.body = response.data.body;
-        output.state = response.data.state;
-        output.assignee = response.data.assignee.login;
-        output.label = response.data.labels;
-        output.milestone = response.data.milestone;
-        output.creator = response.data.user.login;
-        output.url = response.data.url;
+            output.issueID = response.data.number;
+            output.title = response.data.title;
+            output.body = response.data.body;
+            output.state = response.data.state;
+            output.assignee = response.data.assignee.login;
+            output.label = response.data.labels;
+            output.milestone = response.data.milestone;
+            output.creator = response.data.user.login;
+            output.url = response.data.url;
 
-        return output;
+            return output;
+        }
+        catch (error) {
+            console.log(error);
+            return {};
+        }
     }
 
     async closeIssue(data) {
-        const response = await this.client.request(`PATCH /repos/${data.owner}/${data.repo}/issues/${data.issue}`, {
-            owner: data.owner,
-            repo: data.repository,
-            state: 'closed'
-        });
-        let output = {}
+        try {
+            const response = await this.client.request(`PATCH /repos/${data.owner}/${data.repo}/issues/${data.issue}`, {
+                owner: data.owner,
+                repo: data.repository,
+                state: 'closed'
+            });
+            const output = {}
 
-        output.issueID = response.data.number;
-        output.title = response.data.title;
-        output.body = response.data.body;
-        output.state = response.data.state;
-        output.assignee = response.data.assignee.login;
-        output.label = response.data.labels;
-        output.milestone = response.data.milestone;
-        output.creator = response.data.user.login;
-        output.url = response.data.url;
+            output.issueID = response.data.number;
+            output.title = response.data.title;
+            output.body = response.data.body;
+            output.state = response.data.state;
+            output.assignee = response.data.assignee.login;
+            output.label = response.data.labels;
+            output.milestone = response.data.milestone;
+            output.creator = response.data.user.login;
+            output.url = response.data.url;
 
-        return output;
+            return output;
+        }
+        catch (error) {
+            console.log(error);
+            return {};
+        }
     }
+
 }
