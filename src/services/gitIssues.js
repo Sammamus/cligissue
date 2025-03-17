@@ -20,7 +20,25 @@ export class Issues {
             repository: data.repository,
             per_page: data.per_page
         });
-        return response.data;
+
+        let output = [];
+
+        output = response.data.map((issue) => {
+            return {
+                issueID: issue.number,
+                title: issue.title,
+                body: issue.body,
+                state: issue.state,
+                assignee: issue.assignee.login,
+                label: issue.labels,
+                milestone: issue.milestone,
+                creator: issue.creator,
+                url: issue.url
+            };
+        });
+
+
+        return output;
     }
 
     async createIssue(data) {
@@ -33,7 +51,20 @@ export class Issues {
             label: data.label,
             milestone: data.milestone
         });
-        return response.data;
+
+        let output = {}
+
+        output.issueID = response.data.number;
+        output.title = response.data.title;
+        output.body = response.data.body;
+        output.state = response.data.state;
+        output.assignee = response.data.assignee.login;
+        output.label = response.data.labels;
+        output.milestone = response.data.milestone;
+        output.creator = response.data.user.login;
+        output.url = response.data.url;
+
+        return output;
     }
 
     async updateIssue(data) {
@@ -47,7 +78,20 @@ export class Issues {
             milestone: data.milestone,
             state: data.state
         });
-        return response.data;
+
+        let output = {}
+
+        output.issueID = response.data.number;
+        output.title = response.data.title;
+        output.body = response.data.body;
+        output.state = response.data.state;
+        output.assignee = response.data.assignee.login;
+        output.label = response.data.labels;
+        output.milestone = response.data.milestone;
+        output.creator = response.data.user.login;
+        output.url = response.data.url;
+
+        return output;
     }
 
     async closeIssue(data) {
@@ -56,6 +100,18 @@ export class Issues {
             repo: data.repository,
             state: 'closed'
         });
-        return response.data;
+        let output = {}
+
+        output.issueID = response.data.number;
+        output.title = response.data.title;
+        output.body = response.data.body;
+        output.state = response.data.state;
+        output.assignee = response.data.assignee.login;
+        output.label = response.data.labels;
+        output.milestone = response.data.milestone;
+        output.creator = response.data.user.login;
+        output.url = response.data.url;
+
+        return output;
     }
 }
